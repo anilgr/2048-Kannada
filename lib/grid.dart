@@ -21,6 +21,8 @@ class GameState {
 }
 
 class TwentyFortyEight extends StatefulWidget {
+  final Function onScoreChange;
+  TwentyFortyEight({Key key, this.onScoreChange}) : super(key: key);
   @override
   TwentyFortyEightState createState() => TwentyFortyEightState();
 }
@@ -40,6 +42,8 @@ class TwentyFortyEightState extends State<TwentyFortyEight>
       List.generate(4, (x) => List.generate(4, (y) => grid[y][x]));
 
   Timer aiTimer;
+  int mergeScore = 0;
+  int currentScore = 0;
 
   @override
   void initState() {
@@ -84,7 +88,6 @@ class TwentyFortyEightState extends State<TwentyFortyEight>
                 size: (tileSize - borderSize * 2) * tile.size.value,
                 color: numTileColor[tile.animatedValue.value],
                 child: Center(child: TileNumber(tile.animatedValue.value))))));
-
     return
         // Scaffold(
         //     backgroundColor: tan,
@@ -171,6 +174,11 @@ class TwentyFortyEightState extends State<TwentyFortyEight>
         gameStates.add(GameState(gridBeforeSwipe, direction));
         addNewTiles([2]);
         controller.forward(from: 0);
+        if (this.mergeScore > 0) {
+          this.currentScore += this.mergeScore;
+          widget.onScoreChange(this.currentScore);
+          this.mergeScore = 0;
+        }
       }
     });
   }
@@ -209,6 +217,7 @@ class TwentyFortyEightState extends State<TwentyFortyEight>
               mergeTile.changeNumber(controller, resultValue);
               mergeTile.value = 0;
               tiles[j].changeNumber(controller, 0);
+              if (resultValue > 2) this.mergeScore += resultValue;
             }
             tiles[j].value = 0;
             tiles[i].value = resultValue;

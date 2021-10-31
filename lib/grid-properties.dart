@@ -9,6 +9,7 @@ const Color orange = Color.fromARGB(255, 245, 149, 99);
 const Color tan = Color.fromARGB(255, 238, 228, 218);
 const Color numColor = Color.fromARGB(255, 119, 110, 101);
 const Color greyText = Color.fromARGB(255, 119, 110, 101);
+final Color buttonColor = Colors.brown[200];
 
 const Map<int, Color> numTileColor = {
   2: tan,

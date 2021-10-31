@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:twenty_fourty_eight_kannada/grid-properties.dart';
+import 'package:twenty_fourty_eight_kannada/util.dart';
 
 class Tile {
   final int x;
@@ -103,11 +104,15 @@ class TileNumber extends StatelessWidget {
   const TileNumber(this.val, {Key key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Text("$val",
-      style: TextStyle(
-          color: numTextColor[val],
-          fontSize: val > 512 ? 28 : 35,
-          fontWeight: FontWeight.w900));
+  Widget build(BuildContext context) => Container(
+        padding: EdgeInsets.fromLTRB(0, 12, 0, 0),
+        // decoration: BoxDecoration(border: Border.all(width: 1)),
+        child: Text(replaceWithKannadaNumber("$val"),
+            style: TextStyle(
+                color: numTextColor[val],
+                fontSize: val > 512 ? 28 : 35,
+                fontWeight: FontWeight.w900)),
+      );
 }
 
 class BigButton extends StatelessWidget {
