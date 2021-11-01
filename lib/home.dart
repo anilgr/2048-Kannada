@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:twenty_fourty_eight_kannada/best-score.dart';
@@ -9,6 +7,7 @@ import 'package:twenty_fourty_eight_kannada/grid.dart';
 import 'package:twenty_fourty_eight_kannada/instructions.dart';
 import 'package:twenty_fourty_eight_kannada/score.dart';
 import 'package:twenty_fourty_eight_kannada/title.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 
 class Home extends StatefulWidget {
   const Home({Key key}) : super(key: key);
@@ -17,16 +16,32 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
+// class _HomeState extends State<Home> with RestorationMixin {
 class _HomeState extends State<Home> {
   GlobalKey<TwentyFortyEightState> twentyFortyEightKey = GlobalKey();
   GlobalKey<ScoreState> scoreKey = GlobalKey();
-  int bestScore = 10;
+  // RestorableInt bestScore = RestorableInt(0);
+  int bestScore = 0;
   int score = 0;
 
   @override
   void initState() {
     super.initState();
   }
+
+  @override
+  void dispose() {
+    // this.bestScore.dispose();
+    super.dispose();
+  }
+
+  // @override
+  // String get restorationId => "best-score";
+
+  // @override
+  // void restoreState(RestorationBucket oldBucket, bool initialRestore) {
+  //   registerForRestoration(this.bestScore, this.restorationId);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -67,13 +82,16 @@ class _HomeState extends State<Home> {
                           Score(
                             key: this.scoreKey,
                             onAnimationComplete: () {
+                              // if (this.score > this.bestScore.value) {
                               if (this.score > this.bestScore) {
                                 setState(() {
+                                  // this.bestScore.value = this.score;
                                   this.bestScore = this.score;
                                 });
                               }
                             },
                           ),
+                          // BestScore(value: this.bestScore.value),
                           BestScore(value: this.bestScore),
                         ],
                       ),

@@ -65,6 +65,12 @@ class TwentyFortyEightState extends State<TwentyFortyEight>
   }
 
   @override
+  void dispose() {
+    this.controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     double contentPadding = 16;
     double borderSize = 4;
@@ -88,37 +94,26 @@ class TwentyFortyEightState extends State<TwentyFortyEight>
                 size: (tileSize - borderSize * 2) * tile.size.value,
                 color: numTileColor[tile.animatedValue.value],
                 child: Center(child: TileNumber(tile.animatedValue.value))))));
-    return
-        // Scaffold(
-        //     backgroundColor: tan,
-        // body:
-        Padding(
-            padding: EdgeInsets.all(contentPadding),
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Swiper(
-                      up: () => merge(SwipeDirection.up),
-                      down: () => merge(SwipeDirection.down),
-                      left: () => merge(SwipeDirection.left),
-                      right: () => merge(SwipeDirection.right),
-                      child: Container(
-                          height: gridSize,
-                          width: gridSize,
-                          padding: EdgeInsets.all(borderSize),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(cornerRadius),
-                              color: darkBrown),
-                          child: Stack(
-                            children: stackItems,
-                          ))),
-                  // BigButton(
-                  //     label: "Undo",
-                  //     color: numColor,
-                  //     onPressed: gameStates.isEmpty ? null : undoMove),
-                  // BigButton(
-                  //     label: "Restart", color: orange, onPressed: setupNewGame),
-                ]));
+    return Padding(
+        padding: EdgeInsets.all(contentPadding),
+        child:
+            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+          Swiper(
+              up: () => merge(SwipeDirection.up),
+              down: () => merge(SwipeDirection.down),
+              left: () => merge(SwipeDirection.left),
+              right: () => merge(SwipeDirection.right),
+              child: Container(
+                  height: gridSize,
+                  width: gridSize,
+                  padding: EdgeInsets.all(borderSize),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(cornerRadius),
+                      color: darkBrown),
+                  child: Stack(
+                    children: stackItems,
+                  ))),
+        ]));
     // );
   }
 

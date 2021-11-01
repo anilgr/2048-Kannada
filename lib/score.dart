@@ -25,7 +25,7 @@ class ScoreState extends State<Score> with TickerProviderStateMixin {
       setState(() {
         // this.floatScoreOffset = this.controller.value;
         if (this.controller.isCompleted) {
-          widget.onAnimationComplete();
+          if (widget.onAnimationComplete != null) widget.onAnimationComplete();
           this.score += this.animatedScore;
         }
       });
@@ -37,6 +37,12 @@ class ScoreState extends State<Score> with TickerProviderStateMixin {
       this.controller.forward(from: 0);
       this.animatedScore = (score - this.score);
     });
+  }
+
+  @override
+  void dispose() {
+    this.controller.dispose();
+    super.dispose();
   }
 
   @override

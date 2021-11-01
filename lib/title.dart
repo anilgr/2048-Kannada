@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'dart:convert' show utf8;
 
 class GameTitle extends StatelessWidget {
   const GameTitle({Key key}) : super(key: key);
@@ -10,13 +9,7 @@ class GameTitle extends StatelessWidget {
     return Expanded(
       child: Container(
           margin: EdgeInsets.all(8),
-          child:
-              // Text(
-              //   "Join the numbers and get to the  Join the numbers and get to the ",
-              //   style:
-              //       TextStyle(color: Colors.brown[400], fontSize: 18, height: 1.5),
-              // )
-              RichText(
+          child: RichText(
             text: TextSpan(
               text: 'ಸಂಖ್ಯೆಗಳನ್ನು ಜೋಡಿಸಿ',
               style: TextStyle(

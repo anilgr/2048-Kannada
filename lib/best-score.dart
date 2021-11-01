@@ -10,12 +10,6 @@ class BestScore extends StatefulWidget {
 }
 
 class _BestScoreState extends State<BestScore> {
-  // void setScore(int score) {
-  //   setState(() {
-  //     this.bestScore += score;
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Container(
