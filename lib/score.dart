@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:twenty_fourty_eight_kannada/grid-properties.dart';
+import 'package:twenty_fourty_eight_kannada/util.dart';
 
 class Score extends StatefulWidget {
   final Function onAnimationComplete;
@@ -70,23 +71,27 @@ class ScoreState extends State<Score> with TickerProviderStateMixin {
             Stack(
               clipBehavior: Clip.none,
               children: [
-                Text(
-                  "${this.score}",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 22 /
-                          (this.score.toString().length > 3
-                              ? (this.score.toString().length * 0.2)
-                              : 1),
-                      fontWeight: FontWeight.w700),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 2, 0, 0),
+                  child: Text(
+                    replaceWithKannadaNumber("${this.score}"),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.white,
+                        letterSpacing: 1.2,
+                        fontSize: 22 /
+                            (this.score.toString().length > 3
+                                ? (this.score.toString().length * 0.30)
+                                : 1),
+                        fontWeight: FontWeight.w700),
+                  ),
                 ),
                 Positioned(
                     bottom: (-40.0 * (1 - this.controller.value)).toDouble(),
                     child: Opacity(
                       opacity: 1 - this.controller.value,
                       child: Text(
-                        "+${this.animatedScore}",
+                        "+${replaceWithKannadaNumber("${this.animatedScore}")}",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Colors.grey[700],

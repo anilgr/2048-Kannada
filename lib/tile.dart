@@ -107,11 +107,12 @@ class TileNumber extends StatelessWidget {
   Widget build(BuildContext context) => Container(
         padding: EdgeInsets.fromLTRB(0, 12, 0, 0),
         // decoration: BoxDecoration(border: Border.all(width: 1)),
+        // child: Text(replaceWithKannadaNumber("$val"),
         child: Text(replaceWithKannadaNumber("$val"),
             style: TextStyle(
                 color: numTextColor[val],
-                fontSize: val > 512 ? 28 : 35,
-                fontWeight: FontWeight.w900)),
+                fontSize: val > 1000 ? 24 : (val > 100 ? 28 : 35),
+                fontWeight: FontWeight.w600)),
       );
 }
 

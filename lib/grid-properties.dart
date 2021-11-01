@@ -6,9 +6,9 @@ const double moveInterval = .5;
 const Color lightBrown = Color.fromARGB(255, 205, 193, 180);
 const Color darkBrown = Color.fromARGB(255, 187, 173, 160);
 const Color orange = Color.fromARGB(255, 245, 149, 99);
-const Color tan = Color.fromARGB(255, 238, 228, 218);
+const Color tan = Color.fromARGB(255, 251, 248, 231);
 const Color numColor = Color.fromARGB(255, 119, 110, 101);
-const Color greyText = Color.fromARGB(255, 119, 110, 101);
+const Color greyText = Color.fromARGB(250, 118, 107, 97);
 final Color buttonColor = Colors.brown[200];
 
 const Map<int, Color> numTileColor = {

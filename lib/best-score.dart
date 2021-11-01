@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:twenty_fourty_eight_kannada/grid-properties.dart';
+import 'package:twenty_fourty_eight_kannada/util.dart';
 
 class BestScore extends StatefulWidget {
   int value = 0;
@@ -22,6 +23,7 @@ class _BestScoreState extends State<BestScore> {
         constraints: new BoxConstraints(minHeight: 40),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
               "ಅತ್ಯುತ್ತಮ",
@@ -32,16 +34,20 @@ class _BestScoreState extends State<BestScore> {
                   fontFamily: "NudiKannada",
                   fontWeight: FontWeight.w700),
             ),
-            Text(
-              "${widget.value}",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 22 /
-                      (widget.value.toString().length > 3
-                          ? (widget.value.toString().length * 0.2)
-                          : 1),
-                  fontWeight: FontWeight.w700),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 2, 0, 0),
+              child: Text(
+                replaceWithKannadaNumber("${widget.value}"),
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Colors.white,
+                    letterSpacing: 1.2,
+                    fontSize: 22 /
+                        (widget.value.toString().length > 3
+                            ? (widget.value.toString().length * 0.30)
+                            : 1),
+                    fontWeight: FontWeight.w700),
+              ),
             ),
           ],
         ),
