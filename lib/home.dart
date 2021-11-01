@@ -5,9 +5,9 @@ import 'package:twenty_fourty_eight_kannada/credits.dart';
 import 'package:twenty_fourty_eight_kannada/grid-properties.dart';
 import 'package:twenty_fourty_eight_kannada/grid.dart';
 import 'package:twenty_fourty_eight_kannada/instructions.dart';
+import 'package:twenty_fourty_eight_kannada/preference.dart';
 import 'package:twenty_fourty_eight_kannada/score.dart';
 import 'package:twenty_fourty_eight_kannada/title.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
 
 class Home extends StatefulWidget {
   const Home({Key key}) : super(key: key);
@@ -16,32 +16,37 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-// class _HomeState extends State<Home> with RestorationMixin {
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home> with WidgetsBindingObserver {
   GlobalKey<TwentyFortyEightState> twentyFortyEightKey = GlobalKey();
   GlobalKey<ScoreState> scoreKey = GlobalKey();
-  // RestorableInt bestScore = RestorableInt(0);
+
   int bestScore = 0;
   int score = 0;
 
   @override
   void initState() {
     super.initState();
+    Preference.load().then((prefs) {
+      int score = prefs.getInt("best_score");
+      this.setState(() {
+        this.bestScore = score == null ? 0 : score;
+      });
+    });
+    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void dispose() {
-    // this.bestScore.dispose();
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
-  // @override
-  // String get restorationId => "best-score";
-
-  // @override
-  // void restoreState(RestorationBucket oldBucket, bool initialRestore) {
-  //   registerForRestoration(this.bestScore, this.restorationId);
-  // }
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    Preference.load().then(
+        (prefs) async => await prefs.setInt('best_score', this.bestScore));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,16 +87,13 @@ class _HomeState extends State<Home> {
                           Score(
                             key: this.scoreKey,
                             onAnimationComplete: () {
-                              // if (this.score > this.bestScore.value) {
                               if (this.score > this.bestScore) {
                                 setState(() {
-                                  // this.bestScore.value = this.score;
                                   this.bestScore = this.score;
                                 });
                               }
                             },
                           ),
-                          // BestScore(value: this.bestScore.value),
                           BestScore(value: this.bestScore),
                         ],
                       ),
