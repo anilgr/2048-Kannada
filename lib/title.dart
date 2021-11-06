@@ -16,7 +16,8 @@ class GameTitle extends StatelessWidget {
                 color: Colors.brown[400],
                 fontFamily: 'NudiKannada',
                 // fontSize: 6 * (MediaQuery.of(context).devicePixelRatio),
-                fontSize: 18,
+                fontSize:
+                    18 * (MediaQuery.of(context).size.width >= 768 ? 2.0 : 1.0),
               ),
               children: <TextSpan>[
                 TextSpan(

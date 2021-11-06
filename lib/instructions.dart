@@ -17,7 +17,10 @@ class Instructions extends StatelessWidget {
                     style: TextStyle(
                         color: Colors.brown[500],
                         fontFamily: 'NudiKannada',
-                        fontSize: 18),
+                        fontSize: 18 *
+                            (MediaQuery.of(context).size.width >= 768
+                                ? 2.0
+                                : 1.0)),
                     text:
                         "ಹೇಗೆ ಆಡುವುದು: ಅಂಚುಗಳನ್ನು ಸರಿಸಲು ಸ್ವೈಪ್ ಮಾಡಿ. ಒಂದೇ ಸಂಖ್ಯೆಯ ಎರಡು ಅಂಚುಗಳು ಸ್ಪರ್ಶಿಸಿದಾಗ, ಅವು ಒಂದರಲ್ಲಿ ವಿಲೀನಗೊಳ್ಳುತ್ತವೆ !")
               ]))),

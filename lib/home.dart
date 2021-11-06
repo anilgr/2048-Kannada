@@ -62,70 +62,90 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 32, 16, 8),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 16 *
+                              (MediaQuery.of(context).size.width >= 768
+                                  ? 2.0
+                                  : 0)),
+                      child: Column(
                         children: [
-                          Expanded(
-                            child: Container(
-                              alignment: Alignment.centerLeft,
-                              decoration: BoxDecoration(),
-                              child: Text(
-                                "\u{0CE8}\u{0CE6}\u{0CEA}\u{0CEE}",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    letterSpacing: 5,
-                                    color: Colors.black54,
-                                    fontSize: 12 *
-                                        (MediaQuery.of(context).size.width /
-                                            100),
-                                    fontWeight: FontWeight.w700),
-                              ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(16, 32, 16, 8),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Expanded(
+                                  child: Container(
+                                    alignment: Alignment.centerLeft,
+                                    decoration: BoxDecoration(),
+                                    child: Text(
+                                      "\u{0CE8}\u{0CE6}\u{0CEA}\u{0CEE}",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          letterSpacing: 5,
+                                          color: Colors.black54,
+                                          fontSize: 12 *
+                                              (MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  100),
+                                          fontWeight: FontWeight.w700),
+                                    ),
+                                  ),
+                                ),
+                                Score(
+                                  key: this.scoreKey,
+                                  onAnimationComplete: () {
+                                    if (this.score > this.bestScore) {
+                                      setState(() {
+                                        this.bestScore = this.score;
+                                      });
+                                    }
+                                  },
+                                ),
+                                BestScore(value: this.bestScore),
+                              ],
                             ),
                           ),
-                          Score(
-                            key: this.scoreKey,
-                            onAnimationComplete: () {
-                              if (this.score > this.bestScore) {
-                                setState(() {
-                                  this.bestScore = this.score;
-                                });
-                              }
-                            },
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                GameTitle(),
+                                Container(
+                                  child: TextButton(
+                                      style: TextButton.styleFrom(
+                                        primary: Colors.white,
+                                        backgroundColor: Colors.brown[300],
+                                        padding:
+                                            EdgeInsets.fromLTRB(20, 20, 20, 14),
+                                        textStyle: TextStyle(
+                                            fontSize: 16.0 *
+                                                (MediaQuery.of(context)
+                                                            .size
+                                                            .width >=
+                                                        768
+                                                    ? 2.0
+                                                    : 1.0),
+                                            fontFamily: 'NudiKannada',
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      onPressed: () => {
+                                            this.setState(() {
+                                              this
+                                                  .twentyFortyEightKey
+                                                  .currentState
+                                                  .setupNewGame();
+                                            })
+                                          },
+                                      child: Text("ಹೊಸ ಆಟ")),
+                                )
+                              ],
+                            ),
                           ),
-                          BestScore(value: this.bestScore),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          GameTitle(),
-                          Container(
-                            child: TextButton(
-                                style: TextButton.styleFrom(
-                                  primary: Colors.white,
-                                  backgroundColor: Colors.brown[300],
-                                  padding: EdgeInsets.fromLTRB(20, 20, 20, 14),
-                                  textStyle: const TextStyle(
-                                      fontSize: 16,
-                                      fontFamily: 'NudiKannada',
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                onPressed: () => {
-                                      this.setState(() {
-                                        this
-                                            .twentyFortyEightKey
-                                            .currentState
-                                            .setupNewGame();
-                                      })
-                                    },
-                                child: Text("ಹೊಸ ಆಟ")),
-                          )
                         ],
                       ),
                     ),
@@ -136,8 +156,15 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                         this.scoreKey.currentState.setScore(score)
                       },
                     ),
-                    Instructions(),
-                    Credits()
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: (MediaQuery.of(context).size.width >= 768
+                              ? 32.0
+                              : 0.0)),
+                      child: Column(
+                        children: [Instructions(), Credits()],
+                      ),
+                    )
                   ],
                 )),
           ),

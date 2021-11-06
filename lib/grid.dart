@@ -72,9 +72,13 @@ class TwentyFortyEightState extends State<TwentyFortyEight>
 
   @override
   Widget build(BuildContext context) {
-    double contentPadding = 16;
+    double contentPaddingVertical =
+        16 * (MediaQuery.of(context).size.width >= 768 ? 4.0 : 1.0);
+    double contentPaddingHorizontal =
+        16 * (MediaQuery.of(context).size.width >= 768 ? 8.0 : 1.0);
     double borderSize = 4;
-    double gridSize = MediaQuery.of(context).size.width - contentPadding * 2;
+    double gridSize =
+        MediaQuery.of(context).size.width - contentPaddingHorizontal * 2;
     double tileSize = (gridSize - borderSize * 2) / 4;
     List<Widget> stackItems = [];
     stackItems.addAll(gridTiles.map((t) => TileWidget(
@@ -95,7 +99,11 @@ class TwentyFortyEightState extends State<TwentyFortyEight>
                 color: numTileColor[tile.animatedValue.value],
                 child: Center(child: TileNumber(tile.animatedValue.value))))));
     return Padding(
-        padding: EdgeInsets.all(contentPadding),
+        padding: EdgeInsets.fromLTRB(
+            contentPaddingHorizontal,
+            contentPaddingVertical,
+            contentPaddingHorizontal,
+            contentPaddingVertical),
         child:
             Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
           Swiper(

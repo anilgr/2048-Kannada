@@ -64,7 +64,8 @@ class ScoreState extends State<Score> with TickerProviderStateMixin {
               textAlign: TextAlign.center,
               style: TextStyle(
                   color: Colors.grey[100],
-                  fontSize: 14,
+                  fontSize: 14 *
+                      (MediaQuery.of(context).size.width >= 768 ? 2.0 : 1.0),
                   fontFamily: "NudiKannada",
                   fontWeight: FontWeight.w700),
             ),
@@ -79,10 +80,13 @@ class ScoreState extends State<Score> with TickerProviderStateMixin {
                     style: TextStyle(
                         color: Colors.white,
                         letterSpacing: 1.2,
-                        fontSize: 22 /
-                            (this.score.toString().length > 3
-                                ? (this.score.toString().length * 0.30)
-                                : 1),
+                        fontSize: (22 /
+                                (this.score.toString().length > 3
+                                    ? (this.score.toString().length * 0.30)
+                                    : 1)) *
+                            (MediaQuery.of(context).size.width >= 768
+                                ? 2.0
+                                : 1.0),
                         fontWeight: FontWeight.w700),
                   ),
                 ),
@@ -95,11 +99,17 @@ class ScoreState extends State<Score> with TickerProviderStateMixin {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Colors.grey[700],
-                            fontSize: 22 /
-                                (this.animatedScore.toString().length > 3
-                                    ? (this.animatedScore.toString().length *
-                                        0.2)
-                                    : 1),
+                            fontSize: (22 /
+                                    (this.animatedScore.toString().length > 3
+                                        ? (this
+                                                .animatedScore
+                                                .toString()
+                                                .length *
+                                            0.2)
+                                        : 1)) *
+                                (MediaQuery.of(context).size.width >= 768
+                                    ? 2.0
+                                    : 1.0),
                             fontWeight: FontWeight.w700),
                       ),
                     ))

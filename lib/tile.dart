@@ -111,7 +111,8 @@ class TileNumber extends StatelessWidget {
         child: Text(replaceWithKannadaNumber("$val"),
             style: TextStyle(
                 color: numTextColor[val],
-                fontSize: val > 1000 ? 24 : (val > 100 ? 28 : 35),
+                fontSize: (val > 1000 ? 24 : (val > 100 ? 28 : 35)) *
+                    (MediaQuery.of(context).size.width >= 768 ? 2.0 : 1.0),
                 fontWeight: FontWeight.w600)),
       );
 }

@@ -30,7 +30,8 @@ class _BestScoreState extends State<BestScore> {
               textAlign: TextAlign.center,
               style: TextStyle(
                   color: Colors.grey[50],
-                  fontSize: 14,
+                  fontSize: 14 *
+                      (MediaQuery.of(context).size.width >= 768 ? 2.0 : 1.0),
                   fontFamily: "NudiKannada",
                   fontWeight: FontWeight.w700),
             ),
@@ -42,10 +43,11 @@ class _BestScoreState extends State<BestScore> {
                 style: TextStyle(
                     color: Colors.white,
                     letterSpacing: 1.2,
-                    fontSize: 22 /
-                        (widget.value.toString().length > 3
-                            ? (widget.value.toString().length * 0.30)
-                            : 1),
+                    fontSize: (22 /
+                            (widget.value.toString().length > 3
+                                ? (widget.value.toString().length * 0.30)
+                                : 1)) *
+                        (MediaQuery.of(context).size.width >= 768 ? 2.0 : 1.0),
                     fontWeight: FontWeight.w700),
               ),
             ),

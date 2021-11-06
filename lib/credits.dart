@@ -13,7 +13,10 @@ class Credits extends StatelessWidget {
           child: RichText(
               text: TextSpan(children: [
         TextSpan(
-            style: TextStyle(color: Colors.brown[500], fontSize: 10),
+            style: TextStyle(
+                color: Colors.brown[500],
+                fontSize: 10 *
+                    (MediaQuery.of(context).size.width >= 768 ? 2.0 : 1.0)),
             text:
                 "Cloned to Kannada by Anil G.R. | Created by Gabriele Cirulli. Based on 1024 by Veewo Studio and conceptually similar to Threes by Asher Vollmer.")
       ]))),
