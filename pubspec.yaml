@@ -49,6 +49,10 @@ flutter:
       fonts:
         - asset: fonts/NUDI_UNI_ananth_05E.ttf
           style: normal
+    - family: NatoSansKannada
+      fonts:
+        - asset: fonts/NotoSansKannadaUI-Regular.ttf
+          style: normal
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
