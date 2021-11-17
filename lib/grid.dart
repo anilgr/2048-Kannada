@@ -196,7 +196,7 @@ class TwentyFortyEightState extends State<TwentyFortyEight>
         if (grid[i][j].value == 0 ||
             (j != 3 && grid[i][j].value == grid[i][j + 1].value) ||
             (j != 3 && grid[j][i].value == grid[j + 1][i].value)) {
-          return true;
+          return false;
         }
       }
     }
