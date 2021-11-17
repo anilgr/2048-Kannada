@@ -182,8 +182,25 @@ class TwentyFortyEightState extends State<TwentyFortyEight>
           widget.onScoreChange(this.currentScore);
           this.mergeScore = 0;
         }
+      } else {
+        if (this.isGameOver()) {
+          this.showGameOverDialog();
+        }
       }
     });
+  }
+
+  bool isGameOver() {
+    for (var i = 0; i < 4; i++) {
+      for (var j = 0; j < 4; j++) {
+        if (grid[i][j].value == 0 ||
+            (j != 3 && grid[i][j].value == grid[i][j + 1].value) ||
+            (j != 3 && grid[j][i].value == grid[j + 1][i].value)) {
+          return true;
+        }
+      }
+    }
+    return true;
   }
 
   bool mergeLeft() => grid.map((e) => mergeTiles(e)).toList().any((e) => e);
@@ -251,5 +268,30 @@ class TwentyFortyEightState extends State<TwentyFortyEight>
       addNewTiles([2, 2]);
       controller.forward(from: 0);
     });
+  }
+
+  void showGameOverDialog() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            backgroundColor: tan,
+            title: Text(
+              "ಆಟ ಮುಗಿಯಿತು",
+              style: TextStyle(
+                  color: Colors.brown[400], fontFamily: 'NudiKannada'),
+            ),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    this.setupNewGame();
+                    Navigator.of(context).pop();
+                  },
+                  child: Text("ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ",
+                      style: TextStyle(
+                          color: Colors.brown[400], fontFamily: "NudiKannada")))
+            ],
+          );
+        });
   }
 }
