@@ -64,7 +64,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                   children: [
                     Container(
                       padding: EdgeInsets.symmetric(
-                          horizontal: 16 *
+                          horizontal: 16.0 *
                               (MediaQuery.of(context).size.width >= 768
                                   ? 2.0
                                   : 0)),

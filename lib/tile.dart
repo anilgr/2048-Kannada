@@ -111,7 +111,7 @@ class TileNumber extends StatelessWidget {
         child: Text(replaceWithKannadaNumber("$val"),
             style: TextStyle(
                 color: numTextColor[val],
-                fontSize: (val > 1000 ? 24 : (val > 100 ? 28 : 35)) *
+                fontSize: (val > 1000 ? 24 : (val > 100 ? 28.0 : 35.0)) *
                     (MediaQuery.of(context).size.width >= 768 ? 2.0 : 1.0),
                 fontWeight: FontWeight.w600)),
       );
@@ -163,9 +163,9 @@ class Swiper extends StatelessWidget {
         }
       },
       onHorizontalDragEnd: (details) {
-        if (details.velocity.pixelsPerSecond.dx < -1000) {
+        if (details.velocity.pixelsPerSecond.dx < -500) {
           left();
-        } else if (details.velocity.pixelsPerSecond.dx > 1000) {
+        } else if (details.velocity.pixelsPerSecond.dx > 500) {
           right();
         }
       },
