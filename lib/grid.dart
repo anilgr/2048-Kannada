@@ -44,6 +44,7 @@ class TwentyFortyEightState extends State<TwentyFortyEight>
   Timer aiTimer;
   int mergeScore = 0;
   int currentScore = 0;
+  bool won = false;
 
   @override
   void initState() {
@@ -104,8 +105,7 @@ class TwentyFortyEightState extends State<TwentyFortyEight>
             contentPaddingVertical,
             contentPaddingHorizontal,
             contentPaddingVertical),
-        child:
-            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+        child: Stack(children: [
           Swiper(
               up: () => merge(SwipeDirection.up),
               down: () => merge(SwipeDirection.down),
@@ -121,6 +121,60 @@ class TwentyFortyEightState extends State<TwentyFortyEight>
                   child: Stack(
                     children: stackItems,
                   ))),
+          Visibility(
+            visible: this.won,
+            child: Container(
+              height: gridSize,
+              width: gridSize,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(cornerRadius),
+                backgroundBlendMode: BlendMode.multiply,
+                color: Colors.black26,
+              ),
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("ನೀವು ವೀಜೆತರಾಗಿದ್ದೀರಿ !",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16.0 *
+                              (MediaQuery.of(context).size.width >= 768
+                                  ? 3.0
+                                  : 1.5),
+                          fontFamily: 'NudiKannada',
+                          fontWeight: FontWeight.w900,
+                        )),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        TextButton(
+                            style: TextButton.styleFrom(
+                              primary: Colors.white,
+                              backgroundColor: Colors.brown[300],
+                              padding: EdgeInsets.fromLTRB(20, 20, 20, 14),
+                              textStyle: TextStyle(
+                                  fontSize: 16.0 *
+                                      (MediaQuery.of(context).size.width >= 768
+                                          ? 2.0
+                                          : 1.0),
+                                  fontFamily: 'NudiKannada',
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                this.won = false;
+                              });
+                            },
+                            child: Text("ಮುಂದುವರೆಸಿ")),
+                        // TextButton(onPressed: null, child: Text("Restart"))
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ),
+          )
         ]));
     // );
   }
@@ -179,7 +233,10 @@ class TwentyFortyEightState extends State<TwentyFortyEight>
         controller.forward(from: 0);
         if (this.mergeScore > 0) {
           this.currentScore += this.mergeScore;
-          widget.onScoreChange(this.currentScore);
+          this.setScore(this.currentScore);
+          if (this.mergeScore == 2048) {
+            this.won = true;
+          }
           this.mergeScore = 0;
         }
       } else {
@@ -188,6 +245,11 @@ class TwentyFortyEightState extends State<TwentyFortyEight>
         }
       }
     });
+  }
+
+  void setScore(score) {
+    this.currentScore = score;
+    widget.onScoreChange(this.currentScore);
   }
 
   bool isGameOver() {
@@ -266,6 +328,7 @@ class TwentyFortyEightState extends State<TwentyFortyEight>
       });
       toAdd.clear();
       addNewTiles([2, 2]);
+      this.setScore(0);
       controller.forward(from: 0);
     });
   }

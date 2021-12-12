@@ -138,6 +138,10 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                                               this
                                                   .twentyFortyEightKey
                                                   .currentState
+                                                  .won = false;
+                                              this
+                                                  .twentyFortyEightKey
+                                                  .currentState
                                                   .setupNewGame();
                                             })
                                           },

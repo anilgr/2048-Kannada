@@ -36,7 +36,11 @@ class ScoreState extends State<Score> with TickerProviderStateMixin {
   void setScore(int score) {
     setState(() {
       this.controller.forward(from: 0);
-      this.animatedScore = (score - this.score);
+      if (score == 0) {
+        this.animatedScore = 0;
+        this.score = 0;
+      } else
+        this.animatedScore = (score - this.score);
     });
   }
 
