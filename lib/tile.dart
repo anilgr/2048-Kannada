@@ -61,6 +61,14 @@ class Tile {
     t.resetAnimations();
     return t;
   }
+
+  factory Tile.fromJson(Map<String, dynamic> jsonData) {
+    return Tile(jsonData['x'], jsonData['y'], jsonData['value']);
+  }
+
+  Map<String, dynamic> toMap() {
+    return {'x': this.x, 'y': this.y, 'value': this.value};
+  }
 }
 
 class TileWidget extends StatelessWidget {
@@ -106,8 +114,6 @@ class TileNumber extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(
         padding: EdgeInsets.fromLTRB(0, 12, 0, 0),
-        // decoration: BoxDecoration(border: Border.all(width: 1)),
-        // child: Text(replaceWithKannadaNumber("$val"),
         child: Text(replaceWithKannadaNumber("$val"),
             style: TextStyle(
                 color: numTextColor[val],
@@ -163,9 +169,9 @@ class Swiper extends StatelessWidget {
         }
       },
       onHorizontalDragEnd: (details) {
-        if (details.velocity.pixelsPerSecond.dx < -500) {
+        if (details.velocity.pixelsPerSecond.dx < -250) {
           left();
-        } else if (details.velocity.pixelsPerSecond.dx > 500) {
+        } else if (details.velocity.pixelsPerSecond.dx > 250) {
           right();
         }
       },

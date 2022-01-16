@@ -18,7 +18,7 @@ class Credits extends StatelessWidget {
                 fontSize: 10 *
                     (MediaQuery.of(context).size.width >= 768 ? 2.0 : 1.0)),
             text:
-                "Cloned to Kannada by Anil G.R. | Created by Gabriele Cirulli. Based on 1024 by Veewo Studio and conceptually similar to Threes by Asher Vollmer.")
+                "To Kannada by Anil G.R. | Originally created by Gabriele Cirulli. Based on 1024 by Veewo Studio and conceptually similar to Threes by Asher Vollmer.")
       ]))),
     );
   }

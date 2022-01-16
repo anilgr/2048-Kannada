@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.twenty_fourty_eight_kannada">
    <application
-        android:label="twenty_fourty_eight_kannada"
+        android:label="೨೦೪೮"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

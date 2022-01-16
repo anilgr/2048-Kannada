@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:twenty_fourty_eight_kannada/preference.dart';
 import 'package:twenty_fourty_eight_kannada/tile.dart';
 import 'grid-properties.dart';
 
@@ -28,8 +30,9 @@ class TwentyFortyEight extends StatefulWidget {
 }
 
 class TwentyFortyEightState extends State<TwentyFortyEight>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, WidgetsBindingObserver {
   AnimationController controller;
+  bool isStateRestored = false;
 
   List<List<Tile>> grid =
       List.generate(4, (y) => List.generate(4, (x) => Tile(x, y, 0)));
@@ -61,14 +64,50 @@ class TwentyFortyEightState extends State<TwentyFortyEight>
         });
       }
     });
+    List<List<Tile>> rgrid;
+    Preference.load().then((prefs) {
+      String gameState = prefs.getString("game_state");
+      int gameScore = prefs.getInt("game_score");
+      print(gameState);
+      if (gameState != null) {
+        rgrid = (jsonDecode(gameState) as List<dynamic>)
+            .map<List<Tile>>(
+                (e) => (e).map<Tile>((f) => Tile.fromJson(f)).toList())
+            .toList();
+        setState(() {
+          if (rgrid != null) {
+            grid = rgrid;
+          }
 
-    setupNewGame();
+          if (gameScore != null) {
+            this.setScore(gameScore);
+          }
+        });
+      } else {
+        setupNewGame();
+      }
+    });
+
+    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void dispose() {
     this.controller.dispose();
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    Preference.load().then((prefs) async {
+      await prefs.setString(
+          "game_state",
+          jsonEncode(
+              grid.map((e) => e.map((f) => f.toMap()).toList()).toList()));
+      await prefs.setInt("game_score", this.currentScore);
+    });
   }
 
   @override
