@@ -6,6 +6,7 @@ class Instructions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
       child: Container(
@@ -18,9 +19,11 @@ class Instructions extends StatelessWidget {
                         color: Colors.brown[500],
                         fontFamily: 'NudiKannada',
                         fontSize: 18 *
-                            (MediaQuery.of(context).size.width >= 768
+                            (screenWidth >= 768
                                 ? 2.0
-                                : 1.0)),
+                                : screenWidth <= 375
+                                    ? 0.7
+                                    : 1.0)),
                     text:
                         "ಹೇಗೆ ಆಡುವುದು: ಅಂಚುಗಳನ್ನು ಸರಿಸಲು ಸ್ವೈಪ್ ಮಾಡಿ. ಒಂದೇ ಸಂಖ್ಯೆಯ ಎರಡು ಅಂಚುಗಳು ತಾಗಿದಾಗ ಅವುಗಳು ಒಂದಾಗಿ, ಸಂಖ್ಯೆಗಳು ಕೂಡುತ್ತವೆ !")
               ]))),

@@ -6,6 +6,7 @@ class GameTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
     return Expanded(
       child: Container(
           margin: EdgeInsets.all(8),
@@ -16,8 +17,12 @@ class GameTitle extends StatelessWidget {
                 color: Colors.brown[400],
                 fontFamily: 'NudiKannada',
                 // fontSize: 6 * (MediaQuery.of(context).devicePixelRatio),
-                fontSize:
-                    18 * (MediaQuery.of(context).size.width >= 768 ? 2.0 : 1.0),
+                fontSize: 18 *
+                    (screenWidth >= 768
+                        ? 2.0
+                        : screenWidth <= 375
+                            ? 0.8
+                            : 1.0),
               ),
               children: <TextSpan>[
                 TextSpan(

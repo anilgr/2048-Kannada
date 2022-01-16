@@ -50,128 +50,131 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double fontScaleFactor = screenWidth <= 375 ? 0.9 : 1;
     return Scaffold(
         backgroundColor: tan,
         body: SafeArea(
-          child: SingleChildScrollView(
-            child: Container(
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                  color: tan,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 16.0 *
-                              (MediaQuery.of(context).size.width >= 768
-                                  ? 2.0
-                                  : 0)),
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(16, 32, 16, 8),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Expanded(
-                                  child: Container(
-                                    alignment: Alignment.centerLeft,
-                                    decoration: BoxDecoration(),
-                                    child: Text(
-                                      "\u{0CE8}\u{0CE6}\u{0CEA}\u{0CEE}",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          letterSpacing: 5,
-                                          color: Colors.black54,
-                                          fontSize: 12 *
-                                              (MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  100),
-                                          fontWeight: FontWeight.w700),
-                                    ),
+          child: Container(
+              width: screenWidth,
+              decoration: BoxDecoration(
+                color: tan,
+                // border: Border.all(width: 2, color: Colors.greenAccent)
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    // decoration: BoxDecoration(color: Colors.red),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 16.0 * (screenWidth >= 768 ? 2.0 : 0)),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(16, 32, 16, 8),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  alignment: Alignment.centerLeft,
+                                  decoration: BoxDecoration(),
+                                  child: Text(
+                                    "\u{0CE8}\u{0CE6}\u{0CEA}\u{0CEE}",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        letterSpacing: 5,
+                                        color: Colors.black54,
+                                        fontSize: 12 *
+                                            (screenWidth / 100) *
+                                            (screenWidth <= 280 ? 0.9 : 1.0),
+                                        fontWeight: FontWeight.w700),
                                   ),
                                 ),
-                                Score(
-                                  key: this.scoreKey,
-                                  onAnimationComplete: () {
-                                    if (this.score > this.bestScore) {
-                                      setState(() {
-                                        this.bestScore = this.score;
-                                      });
-                                    }
-                                  },
-                                ),
-                                BestScore(value: this.bestScore),
-                              ],
-                            ),
+                              ),
+                              Score(
+                                key: this.scoreKey,
+                                onAnimationComplete: () {
+                                  if (this.score > this.bestScore) {
+                                    setState(() {
+                                      this.bestScore = this.score;
+                                    });
+                                  }
+                                },
+                              ),
+                              BestScore(value: this.bestScore),
+                            ],
                           ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                GameTitle(),
-                                Container(
-                                  child: TextButton(
-                                      style: TextButton.styleFrom(
-                                        primary: Colors.white,
-                                        backgroundColor: Colors.brown[300],
-                                        padding:
-                                            EdgeInsets.fromLTRB(20, 20, 20, 14),
-                                        textStyle: TextStyle(
-                                            fontSize: 16.0 *
-                                                (MediaQuery.of(context)
-                                                            .size
-                                                            .width >=
-                                                        768
-                                                    ? 2.0
-                                                    : 1.0),
-                                            fontFamily: 'NudiKannada',
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      onPressed: () => {
-                                            this.setState(() {
-                                              this
-                                                  .twentyFortyEightKey
-                                                  .currentState
-                                                  .won = false;
-                                              this
-                                                  .twentyFortyEightKey
-                                                  .currentState
-                                                  .setupNewGame();
-                                            })
-                                          },
-                                      child: Text("ಹೊಸ ಆಟ")),
-                                )
-                              ],
-                            ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              GameTitle(),
+                              Container(
+                                child: TextButton(
+                                    style: TextButton.styleFrom(
+                                      primary: Colors.white,
+                                      backgroundColor: Colors.brown[300],
+                                      padding:
+                                          EdgeInsets.fromLTRB(20, 20, 20, 14),
+                                      textStyle: TextStyle(
+                                          fontSize: fontScaleFactor *
+                                              16.0 *
+                                              (MediaQuery.of(context)
+                                                          .size
+                                                          .width >=
+                                                      768
+                                                  ? 2.0
+                                                  : 1.0),
+                                          fontFamily: 'NudiKannada',
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    onPressed: () => {
+                                          this.setState(() {
+                                            this
+                                                .twentyFortyEightKey
+                                                .currentState
+                                                .won = false;
+                                            this
+                                                .twentyFortyEightKey
+                                                .currentState
+                                                .setupNewGame();
+                                          })
+                                        },
+                                    child: Text("ಹೊಸ ಆಟ")),
+                              )
+                            ],
                           ),
-                        ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  TwentyFortyEight(
+                    key: twentyFortyEightKey,
+                    onScoreChange: (score) => {
+                      this.score = score,
+                      this.scoreKey.currentState.setScore(score)
+                    },
+                  ),
+                  Expanded(
+                    flex: 0,
+                    child: Container(
+                      // decoration: BoxDecoration(color: Colors.red),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: (screenWidth >= 768 ? 32.0 : 0.0)),
+                        child: Column(
+                          children: [Instructions(), Credits()],
+                        ),
                       ),
                     ),
-                    TwentyFortyEight(
-                      key: twentyFortyEightKey,
-                      onScoreChange: (score) => {
-                        this.score = score,
-                        this.scoreKey.currentState.setScore(score)
-                      },
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: (MediaQuery.of(context).size.width >= 768
-                              ? 32.0
-                              : 0.0)),
-                      child: Column(
-                        children: [Instructions(), Credits()],
-                      ),
-                    )
-                  ],
-                )),
-          ),
+                  )
+                ],
+              )),
         ));
   }
 }
